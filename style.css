@@ -1,0 +1,514 @@
+/* 引入外部字体 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=ZCOOL+KuaiLe&family=Long+Cang&family=Ma+Shan+Zheng&family=Zhi+Mang+Xing&family=Fira+Code&family=Press+Start+2P&family=Kalam&family=Dancing+Script&family=Orbitron&display=swap');
+
+/* --- 核心：CSS 变量定义 --- */
+:root {
+    /* 颜色 */
+    --bg-color: #f4f7f9;
+    --card-bg-color: #ffffff;
+    --text-color: #333333;
+    --text-light-color: #777777;
+    --accent-color: #007bff;
+    --accent-hover-color: #0056b3;
+    --border-color: #e0e0e0;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    
+    /* 字体 */
+    --font-family: 'Noto Sans SC', sans-serif;
+    --font-size: 16px;
+
+    /* 布局 */
+    --border-radius: 8px;
+    --card-shadow: 0 4px 12px var(--shadow-color);
+    --transition-speed: 0.3s;
+}
+
+/* 深色模式变量 */
+body.dark-mode {
+    --bg-color: #1a1a1a;
+    --card-bg-color: #2c2c2c;
+    --text-color: #e0e0e0;
+    --text-light-color: #999999;
+    --accent-color: #00aaff;
+    --accent-hover-color: #0077cc;
+    --border-color: #444444;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+/* --- UI 风格 --- */
+/* 默认风格已在 :root 中 */
+
+/* 1. 玻璃拟态 */
+body.ui-style-glassmorphism {
+    --card-bg-color: rgba(255, 255, 255, 0.2);
+    --border-color: rgba(255, 255, 255, 0.3);
+    --border-radius: 15px;
+}
+body.ui-style-glassmorphism.dark-mode {
+    --card-bg-color: rgba(0, 0, 0, 0.2);
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+.ui-style-glassmorphism .section-contents, .ui-style-glassmorphism .search-container {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* 2. 新拟态 */
+body.ui-style-neomorphism {
+    --card-bg-color: var(--bg-color);
+    --card-shadow: 6px 6px 12px var(--shadow-color), -6px -6px 12px var(--card-bg-color);
+    --border-radius: 20px;
+}
+body.ui-style-neomorphism.dark-mode {
+     --card-shadow: 6px 6px 12px #141414, -6px -6px 12px #202020;
+}
+.ui-style-neomorphism .section-tabs .tab.active, .ui-style-neomorphism button {
+    box-shadow: inset 2px 2px 5px var(--shadow-color), inset -2px -2px 5px var(--card-bg-color);
+}
+body.ui-style-neomorphism.dark-mode .section-tabs .tab.active, body.ui-style-neomorphism.dark-mode button {
+     box-shadow: inset 2px 2px 5px #141414, inset -2px -2px 5px #202020;
+}
+
+
+/* 3. 简约白 */
+body.ui-style-minimal-white {
+    --bg-color: #fff;
+    --card-bg-color: #fff;
+    --text-color: #000;
+    --border-color: #eee;
+    --card-shadow: none;
+    --border-radius: 4px;
+}
+
+/* 4. 活力橙 */
+body.ui-style-vibrant-orange {
+    --bg-color: #fff8e1;
+    --accent-color: #ff9800;
+    --accent-hover-color: #f57c00;
+    --text-color: #4e342e;
+    --card-bg-color: #ffffff;
+}
+body.ui-style-vibrant-orange.dark-mode {
+    --bg-color: #26201b;
+    --accent-color: #ffb74d;
+    --text-color: #ffe0b2;
+    --card-bg-color: #3e2723;
+}
+
+/* 5. 墨韵中国风 */
+body.ui-style-ink-painting {
+    --bg-color: #f5f5dc;
+    --text-color: #3a2f2f;
+    --card-bg-color: rgba(255, 255, 255, 0.7);
+    --accent-color: #8b0000;
+    --border-color: #c0a080;
+    font-family: 'Ma Shan Zheng', cursive;
+}
+body.ui-style-ink-painting.dark-mode {
+    --bg-color: #2c2828;
+    --text-color: #dcdcdc;
+    --card-bg-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 6. 像素游戏 */
+body.ui-style-pixel-game {
+    font-family: 'Press Start 2P', cursive;
+    --border-radius: 0;
+    --border-color: var(--text-color);
+    --bg-color: #2727a1;
+    --text-color: #fff;
+    --card-bg-color: #2727a1;
+}
+body.ui-style-pixel-game.dark-mode {
+    --bg-color: #111;
+    --text-color: #0f0;
+    --card-bg-color: #111;
+}
+
+/* 7. 手写笔记 */
+body.ui-style-handwritten {
+    font-family: 'Kalam', cursive;
+    --bg-color: #fffde7;
+    --text-color: #4e342e;
+    --card-bg-color: transparent;
+    --card-shadow: none;
+    --border-color: #ccc;
+}
+.ui-style-handwritten .content-panel { border-bottom: 1px dashed var(--border-color); }
+.ui-style-handwritten a:hover { text-decoration: underline; }
+
+
+
+
+/* --- 全局样式 --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+    line-height: 1.6;
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+
+a:hover {
+    color: var(--accent-hover-color);
+}
+
+/* --- 主页布局 --- */
+#main-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 40px auto;
+}
+
+.clock {
+    font-size: calc(var(--font-size) + 4px);
+    font-weight: bold;
+    color: var(--text-light-color);
+    flex-shrink: 0;
+}
+
+.search-container {
+    flex-grow: 1;
+    margin: 0 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#search-form {
+    display: flex;
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-color);
+    transition: all var(--transition-speed);
+}
+
+#search-input {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    padding: 12px 18px;
+    font-size: var(--font-size);
+    color: var(--text-color);
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    outline: none;
+}
+
+#search-form button {
+    border: none;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0 20px;
+    cursor: pointer;
+    font-size: var(--font-size);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    transition: background-color var(--transition-speed);
+}
+
+#search-form button:hover {
+    background-color: var(--accent-hover-color);
+}
+
+.top-right-buttons {
+    display: flex;
+    gap: 10px;
+   
+}
+
+.top-right-buttons button {
+    padding: 8px 16px;
+    border: 1px solid var(--border-color);
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    transition: transform 0.3s ease;
+}
+.top-right-buttons button:hover {
+    background-color: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+#theme-toggle-btn,#settings-btn {
+    width: 40px;
+    height: 40px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-grow: 1;
+}
+
+.section-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.section-tabs .tab {
+    padding: 10px 25px;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    background-color: transparent;
+    color: var(--text-light-color);
+    font-size: calc(var(--font-size) + 2px);
+    transition: all var(--transition-speed);
+    border: 1px solid transparent;
+}
+
+.section-tabs .tab:hover {
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+}
+
+.section-tabs .tab.active {
+    background-color: var(--accent-color);
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.section-contents {
+    padding: 30px;
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-color);
+    transition: all var(--transition-speed);
+}
+
+.content-panel {
+    display: none;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.content-panel.active {
+    display: grid;
+}
+
+.content-link a {
+    display: block;
+    padding: 15px;
+    background-color: var(--bg-color);
+    border-radius: var(--border-radius);
+    text-align: center;
+    font-size: var(--font-size);
+    color: var(--text-color);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed), background-color var(--transition-speed);
+    border: 1px solid var(--border-color);
+}
+
+.content-link a:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow);
+    background-color: var(--card-bg-color);
+    color: var(--accent-color);
+}
+
+
+.main-footer {
+    text-align: center;
+    padding: 20px 0;
+    color: var(--text-light-color);
+    margin-top: 40px;
+}
+
+.friendly-links a {
+    margin: 0 15px;
+    color: var(--text-light-color);
+    position: relative;
+    padding-bottom: 4px;
+}
+.friendly-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width var(--transition-speed) ease-in-out;
+}
+.friendly-links a:hover::after {
+    width: 100%;
+}
+
+
+/* --- 设置页样式 --- */
+.settings-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 1000;
+}
+
+.settings-panel {
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    border-bottom: 1px solid var(--border-color);
+}
+.settings-header h2 {
+    color: var(--text-color);
+}
+#close-settings-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all var(--transition-speed);
+}
+#close-settings-btn:hover {
+    background-color: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+
+.settings-body {
+    padding: 25px;
+    overflow-y: auto;
+}
+
+fieldset {
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: var(--border-radius);
+}
+
+legend {
+    padding: 0 10px;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+.setting-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.setting-item label {
+    font-weight: 500;
+    text-align: right;
+}
+
+select, .settings-body input[type="text"], .settings-body input[type="color"] {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    font-size: calc(var(--font-size) - 2px);
+}
+.settings-body input[type="color"] {
+    padding: 2px;
+    height: 38px;
+}
+.settings-body input[type="range"] {
+    cursor: pointer;
+}
+
+.setting-item-action {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+.setting-item-action input { flex-grow: 1; }
+.setting-item-action button, .management-item button {
+    padding: 8px 15px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--accent-color);
+    background-color: var(--accent-color);
+    color: white;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+}
+.setting-item-action button:hover, .management-item button:hover {
+    background-color: var(--accent-hover-color);
+    border-color: var(--accent-hover-color);
+}
+
+.management-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+}
+.management-item span {
+    flex-grow: 1;
+    margin-right: 10px;
+    word-break: break-all;
+}
+.management-item button {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+.management-item button:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}

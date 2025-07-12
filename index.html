@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资源导航</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 主页 -->
+    <div id="main-page">
+        <header class="main-header">
+            <span>🕝</span><div id="clock" class="clock">00:00:00</div>
+            <div class="search-container">
+                <form id="search-form" action="https://www.bing.com/search" method="get" target="_blank">
+                    <input type="text" id="search-input" name="q" placeholder="搜索全网..." autocomplete="off">
+                    <button type="submit">搜索</button>
+                </form>
+            </div>
+            <div class="top-right-buttons">
+                <button id="theme-toggle-btn"><h2>🌗</h2></button>
+                <button id="settings-btn"><h2>⚙</h2></button>
+            </div>
+        </header>
+
+        <main class="content-container">
+            <nav id="section-tabs" class="section-tabs"></nav>
+            <div id="section-contents" class="section-contents"></div>
+        </main>
+
+        <footer class="main-footer">
+            <div id="friendly-links-container" class="friendly-links"></div>
+        </footer>
+    </div>
+
+    <!-- 设置页 -->
+    <div id="settings-page" class="settings-page" style="display: none;">
+        <div class="settings-panel">
+            <header class="settings-header">
+                <h2>个性化设置</h2>
+                <button id="close-settings-btn">返回主页</button>
+            </header>
+
+            <div class="settings-body">
+                <fieldset>
+                    <legend>全局风格</legend>
+                    <div class="setting-item">
+                        <label for="ui-style-select">UI 界面风格:</label>
+                        <select id="ui-style-select"></select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="theme-color-input">主题强调色:</label>
+                        <input type="color" id="theme-color-input">
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>字体设置</legend>
+                    <div class="setting-item">
+                        <label for="font-family-select">全局字体样式:</label>
+                        <select id="font-family-select"></select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="font-size-input">全局字体大小 (px):</label>
+                        <input type="range" id="font-size-input" min="12" max="24" step="1">
+                        <span id="font-size-value">16px</span>
+                    </div>
+                    <div class="setting-item">
+                        <label for="font-color-input">全局字体颜色:</label>
+                        <input type="color" id="font-color-input">
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>板块管理</legend>
+                    <div id="section-management-container"></div>
+                    <div class="setting-item-action">
+                        <input type="text" id="new-section-name" placeholder="输入新板块名称">
+                        <button id="add-section-btn">添加板块</button>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>链接管理</legend>
+                    <div class="setting-item">
+                        <label for="link-section-select">选择板块进行管理:</label>
+                        <select id="link-section-select"></select>
+                    </div>
+                    <div id="link-management-container"></div>
+                    <div class="setting-item-action">
+                        <input type="text" id="new-link-name" placeholder="网站名称">
+                        <input type="text" id="new-link-url" placeholder="网站URL (https://...)">
+                        <button id="add-link-btn">添加链接</button>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>功能设置</legend>
+                    <div class="setting-item">
+                        <label for="search-engine-select">默认搜索引擎:</label>
+                        <select id="search-engine-select"></select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="clock-style-select">时间显示样式:</label>
+                        <select id="clock-style-select"></select>
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>友情链接管理</legend>
+                    <div id="friendly-link-management-container"></div>
+                    <div class="setting-item-action">
+                        <input type="text" id="new-fname" placeholder="友链名称">
+                        <input type="text" id="new-furl" placeholder="友链URL (https://...)">
+                        <button id="add-friendly-link-btn">添加友链</button>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>数据管理</legend>
+                    <div class="setting-item-action">
+                        <button id="export-config-btn">导出配置</button>
+                        <button id="import-config-btn">导入配置</button>
+                        <input type="file" id="import-file-input" accept=".json" style="display: none;">
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
